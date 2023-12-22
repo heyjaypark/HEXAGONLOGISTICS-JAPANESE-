@@ -15,6 +15,11 @@ import article.model.Writer;
 import jdbc.JdbcUtil;
 
 public class ArticleDao {
+	
+	/*
+	 * 게시글 정보를 입력하기 위한 메소드 
+	 * 投稿情報を入力するためのメソッド
+	 */
 	public Article insert(Connection conn, Article article) throws SQLException {
 		PreparedStatement pstmt = null;
 		Statement stmt = null;
@@ -53,6 +58,10 @@ public class ArticleDao {
 
 	}
 
+	/*
+	 * 게시글 총페이지수를 가져오기 위한 메소드(전체 게시글 수)
+	 * 投稿の総ページ数を取得するためのメソッド（全体投稿数
+	 */
 	public int selectCount(Connection conn) throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -73,6 +82,10 @@ public class ArticleDao {
 		}
 	}
 
+	/*
+	 * 게시글 목록을 페이징하여 출력하기 위한 메소드 
+	 * 投稿リストをページングして出力するためのメソッド
+	 */
 	public List<Article> select(Connection conn, int startRow, int size) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -110,7 +123,10 @@ public class ArticleDao {
 	}
 
 
-
+	/*
+	 * 게시글이 존재하는지 확인하기 위한 메소드 
+	 * 投稿が存在するかどうかを確認するためのメソッド
+	 */
 	public Article selectById(Connection conn, int no) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -134,6 +150,10 @@ public class ArticleDao {
 		}
 	}
 
+	/*
+	 * 공지사항 조회시 조회수를 증가시키기 위한 메소드 
+	 * お知らせ照会時に再生数を増加させるためのメソッド
+	 */
 public void increaseReadCount(Connection conn, int no) throws SQLException{
 	try(PreparedStatement pstmt= conn.prepareStatement("update article set read_cnt=read_cnt+1 where article_no=?")){
 		pstmt.setInt(1, no);
@@ -142,6 +162,10 @@ public void increaseReadCount(Connection conn, int no) throws SQLException{
 	}
 }
 
+/*
+ * 공지사항 수정시 사용하는 메소드 
+ * お知らせを修正する際に使用するメソッド
+ */
 public int update(Connection conn, int no, String title) throws SQLException{
 	try(PreparedStatement pstmt= conn.prepareStatement("update article set title = ?, moddate=sysdate where article_no = ?")){
 		pstmt.setString(1, title);
@@ -152,6 +176,10 @@ public int update(Connection conn, int no, String title) throws SQLException{
 	}
 }
 
+/*
+ * 공지사항 삭제시 사용하는 메소드 
+ * お知らせ削除時に使用するメソッド
+ */
 public int delete(Connection conn, int no, String title) throws SQLException{
 	try(PreparedStatement pstmt= conn.prepareStatement("delete from article where article_no = ?")){
 		pstmt.setInt(1, no);

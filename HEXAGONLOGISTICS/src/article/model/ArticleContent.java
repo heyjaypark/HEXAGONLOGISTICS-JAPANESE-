@@ -1,5 +1,7 @@
 package  article.model;
 
+/*공지사항 글번호와 내용을 담기위한 VO
+お知らせ文番号と内容を盛り込むためのVO*/
 public class ArticleContent {
 	
 	private Integer number;

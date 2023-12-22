@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Hexagon Logistics ver 1.0</title>
-<!-- 수정된 CSS 파일 경로 -->
   <link rel="stylesheet" type="text/css" href="css/main.css">
 
 
@@ -26,7 +25,6 @@
     <u:isLogin>
     ${authUser.name} 様こんにちは。
 <a href="logout.do">[ログアウト]</a>
-<!-- <a href="changePwd.do">[암호변경하기]</a> -->
 </u:isLogin>
 
 
@@ -45,20 +43,21 @@
 
 <section>
 
-<h2>어서오세요! 헥사곤물류 재고관리 프로그램 메인화면입니다.<br/>
-다음의 이미지를 통해 저희 프로그램의 모습을 미리 확인하세요!</h2>
+<h2>ようこそ!ヘキサゴン物流在庫管理プログラムのメイン画面です。<br/>
+次の画像を通じて、当プログラムの様子を事前にご確認ください！</h2>
 
-<!-- 이미지 버튼 추가 -->
+<!-- 버튼별 이미지 표시
+ボタン別画像表示 -->
 <button id="introBtn" onclick="displayImage('imageServlet?imageName=intro.png')"></button>
 <button id="stockManageBtn" onclick="displayImage('imageServlet?imageName=stockmanage.png')"></button>
 <button id="salesBtn" onclick="displayImage('imageServlet?imageName=sales.png')"></button>
 <button id="stockListBtn" onclick="displayImage('imageServlet?imageName=stocklist.png')"></button>
 
-<!-- 이미지 표시 영역 -->
+
 <div id="imageDisplay">
         <img src="imageServlet?imageName=intro.png" alt="이미지">
     </div>
-<!-- JavaScript 함수 추가 -->
+
 <script>
     function displayImage(imageUrl) {
         document.getElementById('imageDisplay').innerHTML = '<img src="' + imageUrl + '" alt="이미지">';

@@ -42,15 +42,24 @@ public class DeleteArticleHandler implements CommandHandler {
 	private String processForm(HttpServletRequest req, HttpServletResponse res)
 		throws IOException{
 			try {
+				
 				String noVal = req.getParameter("no");
 				int no = Integer.parseInt(noVal);
 				ArticleData articleData = readService.getArticle(no, false);
 				User authUser = (User)req.getSession().getAttribute("authUser");
+				/*
+				 * 공지사항 작성자가 삭제하는 것인지 확인 
+				 * お知らせ作成者が削除することを確認
+				 */
 				if(!canModify(authUser,articleData)) {
 					res.sendError(HttpServletResponse.SC_FORBIDDEN);
 					return null;
 				
 				}
+				/*
+				 * 공지사항 작성자와 글번호를 가져옴 
+				 * お知らせ作成者と書き込み番号を取得
+				 */
 				ModifyRequest modReq = new ModifyRequest(authUser.getId(), no,
 						articleData.getArticle().getTitle(),
 						articleData.getContent());
@@ -63,6 +72,7 @@ public class DeleteArticleHandler implements CommandHandler {
 			}
 				
 			}
+	
 		private boolean canModify(User authUser, ArticleData articleData) {
 			String writerId = articleData.getArticle().getWriter().getId();
 			return authUser.getId().equals(writerId);
@@ -74,7 +84,10 @@ public class DeleteArticleHandler implements CommandHandler {
 			User authUser =(User)req.getSession().getAttribute("authUser");
 			String noVal = req.getParameter("no");
 			int no = Integer.parseInt(noVal);
-			
+			/*
+			 * 공지사항 작성자와 글번호를 가져옴 
+			 * お知らせ作成者と書き込み番号を取得
+			 */
 			ModifyRequest modReq = new ModifyRequest(authUser.getId(),no,
 					req.getParameter("title"),
 					req.getParameter("content"));
@@ -84,7 +97,12 @@ public class DeleteArticleHandler implements CommandHandler {
 			Map<String, Boolean> errors = new HashMap<>();
 			req.setAttribute("errors", errors);
 			modReq.validate(errors);
+			
 			try {
+				/*
+				 * 공지사항 삭제 
+				 * お知らせ削除
+				 */
 				deleteService.delete(modReq);
 				return"/WEB-INF/view/DeleteSuccess.jsp";
 			}catch(ArticleNotFoundException e) {

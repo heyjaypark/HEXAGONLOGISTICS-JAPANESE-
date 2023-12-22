@@ -8,8 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import mvc.command.CommandHandler;
 import product.model.ProductRequest;
+import product.service.NoMinusException;
 import product.service.ProductUpdateService;
 
+//이 클래스는 상품 수정을 처리하는 핸들러 클래스입니다.
+//このクラスは商品の更新を処理するハンドラークラスです。
 public class ProductUpdateHandler implements CommandHandler {
 
 	private static final String FORM_VIEW = "/WEB-INF/view/Productupdates.jsp";
@@ -43,13 +46,16 @@ public class ProductUpdateHandler implements CommandHandler {
 		int p_suwon = 0;
 		int p_incheon = 0;
 		int price = 0;
-		
-		
+
+		// 에러를 저장할 Map을 생성하고 기본값을 설정합니다.
+		// エラーを保存するMapを作成し、デフォルト値を設定します。
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
 		errors.put("numberInsert", null);
 
 		try {
+			// 입력 값을 숫자로 변환합니다.
+			// 入力値を数字に変換します
 			p_no = Integer.parseInt(p_novals);
 			p_seoul = Integer.parseInt(p_seoulval);
 			p_suwon = Integer.parseInt(p_suwonval);
@@ -62,17 +68,23 @@ public class ProductUpdateHandler implements CommandHandler {
 			productReq.setP_suwon(p_suwon);
 			productReq.setP_incheon(p_incheon);
 			productReq.setPrice(price);
+			if (p_seoul < 0 || p_suwon < 0 || p_incheon < 0 || price < 0) {
+				throw new NoMinusException();
+			} else {
 
-			
-
-			productService.productUpdate(productReq); 
-			errors.put("successUpdate", Boolean.TRUE);
-			return "/WEB-INF/view/Productupdates.jsp";
+				productService.productUpdate(productReq);
+				errors.put("successUpdate", Boolean.TRUE);
+				return "/WEB-INF/view/Productupdates.jsp";
+			}
 		} catch (NumberFormatException e) {
 
-			// TODO: handle exception
+			// 숫자 변환 예외가 발생한 경우, 오류를 설정하고 폼 뷰로 이동합니다.
+			// 数字変換例外が発生した場合、エラーを設定してフォームビューに移動します。
 			errors.put("numberInsert", Boolean.TRUE);
 			return FORM_VIEW;
-		} 
+		} catch (NoMinusException e) {
+			errors.put("NoMinus", true);
+			return FORM_VIEW;
+		}
 	}
 }

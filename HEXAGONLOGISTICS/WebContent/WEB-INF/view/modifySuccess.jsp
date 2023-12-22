@@ -137,7 +137,7 @@ float: right;
 </head>
 <body>
 	<header>
-		<a href=index.jsp><h1>Hexagon Logistics ver 1.0</h1></a>
+		<h1><a href=index.jsp>Hexagon Logistics ver 1.0</a></h1>
 		<div id="loginButton">
 			<u:notLogin>
 				<a href="login.do">ログイン</a>
@@ -145,7 +145,6 @@ float: right;
 			<u:isLogin>
     ${authUser.name}様こんにちは。
 <a href="logout.do">[ログアウト]</a>
-				<!-- <a href="changePwd.do">[암호변경하기]</a> -->
 			</u:isLogin>
 		</div>
 	</header>

@@ -134,7 +134,7 @@ float: right;
 </head>
 <body>
  	<header>
-		<a href=index.jsp><h1>Hexagon Logistics ver 1.0</h1></a>
+		<h1><a href=index.jsp>Hexagon Logistics ver 1.0</a></h1>
 		<div id="loginButton">
 			<u:notLogin>
 				<a href="login.do">ログイン</a>
@@ -142,7 +142,6 @@ float: right;
 			<u:isLogin>
     ${authUser.name}様こんにちは。
 <a href="logout.do">[ログアウト]</a>
-				<!-- <a href="changePwd.do">[암호변경하기]</a> -->
 			</u:isLogin>
 		</div>
 	</header>
@@ -160,18 +159,20 @@ float: right;
 <tr>
 <td>
 <font color = “#000000” size = “7”>
-제목:</font>
+タイトル</font>
 </td>
 <td>
 <input type="text" name="title" value="${param.title}"/>
 
 </td>
+<!-- 제목은 공백이 아닐 것
+タイトルは空白でないこと -->
 <c:if test="${errors.title}">タイトルを入力してください。</c:if>
 </tr>
 <br/>
 <tr>
 <td><font color = “#000000” size = “7”>
-내용:</font></td>
+内容</font></td>
 <td><textarea name="content" rows="30" cols="50">${param.content}</textarea></td>
 </tr>
 

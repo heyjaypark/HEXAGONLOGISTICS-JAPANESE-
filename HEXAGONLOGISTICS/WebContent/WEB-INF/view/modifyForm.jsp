@@ -135,7 +135,7 @@ float: right;
 
 <body>
  	<header>
-		<a href=index.jsp><h1>Hexagon Logistics ver 1.0</h1></a>
+		<h1><a href=index.jsp>Hexagon Logistics ver 1.0</a></h1>
 		<div id="loginButton">
 			<u:notLogin>
 				<a href="login.do">ログイン</a>
@@ -143,7 +143,6 @@ float: right;
 			<u:isLogin>
     ${authUser.name}様こんにちは。
 <a href="logout.do">[ログアウト]</a>
-				<!-- <a href="changePwd.do">[암호변경하기]</a> -->
 			</u:isLogin>
 		</div>
 	</header>
@@ -164,24 +163,27 @@ float: right;
 	<input type="hidden" name="no" value="${modReq.articleNumber}">
 	</td>
 <font color = “#000000” size = “7”>
-	<td>번호:<br/>${modReq.articleNumber}</td>
+	<td>番号<br/>${modReq.articleNumber}</td>
 </font>
 
 </tr>
 <tr>
-	<td>제목:<br/>
+	<td>タイトル<br/>
 	</td>
+	<!-- 제목 공백 아닐것
+	 タイトルは空白ではないこと -->
 	<td><input type="text" name="title" value="${modReq.title}"></td>
 	</tr>
 	<c:if test="${errors.title}">タイトルを入力してください。</c:if>
 
 <tr>
-	<td>내용:<br/></td>
+	<td>内容<br/></td>
 	<td><textarea name="content" rows="30" cols="50">${modReq.content}</textarea></td>
 </tr>
 </table>
 <button class= submit-button>投稿修正</button>
-</div>
 </form>
+</div>
+
 </body>
 </html>

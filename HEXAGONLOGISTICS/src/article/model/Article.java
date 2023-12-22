@@ -2,6 +2,8 @@ package article.model;
 
 import java.util.Date;
 
+/*공지사항 정보를 담기 위한 VO
+お知らせ情報を盛り込むためのVO*/
 public class Article {
 	
 	private Integer number;

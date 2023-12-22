@@ -18,13 +18,16 @@ public class ImageServlet extends HttpServlet {
 		@Override
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		    // 이미지 파일의 경로 설정
+			//画像ファイルのパス設定
 	        String imagePath = getServletContext().getRealPath("/images");
 	        String imageName = request.getParameter("imageName"); // 파라미터로 이미지 파일명 받기
 	        File imageFile = new File(imagePath, imageName);
 
 	        // 이미지 파일이 존재하는지 확인
+	        //画像ファイルが存在することを確認
 	        if (imageFile.exists()) {
 	            // 이미지를 읽어와서 응답으로 전송
+	        	//画像を読んで応答で送信
 	            response.setContentType("image/png");
 	            try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(imageFile));
 	                    OutputStream os = response.getOutputStream()) {
@@ -36,6 +39,7 @@ public class ImageServlet extends HttpServlet {
 	            }
 	        } else {
 	            // 이미지 파일이 없을 경우 404 응답
+	        	//画像ファイルがない場合は404応答
 	            response.sendError(HttpServletResponse.SC_NOT_FOUND);
 	        }
 		}

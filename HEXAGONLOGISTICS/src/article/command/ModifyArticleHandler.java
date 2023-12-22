@@ -41,9 +41,19 @@ public class ModifyArticleHandler implements CommandHandler {
 	private String processForm(HttpServletRequest req, HttpServletResponse res)
 		throws IOException{
 			try {
+				/*
+				 * GET방식으로 수정할 공지사항의 페이지No를 받음 
+				 * GET方式で修正するお知らせのページNoを受け取る
+				 */
 				String noVal = req.getParameter("no");
 				int no = Integer.parseInt(noVal);
+				
 				ArticleData articleData = readService.getArticle(no, false);
+				
+				/*
+				 * 공지사항을 수정하는 사람의 사원번호가 공지사항을 작성한 사람의 사원번호와 일치하는지 확인
+				 * お知らせを修正する人の社員番号が、お知らせを作成した人の社員番号と一致しているかどうかを確認する
+				 */
 				User authUser = (User)req.getSession().getAttribute("authUser");
 				if(!canModify(authUser,articleData)) {
 					res.sendError(HttpServletResponse.SC_FORBIDDEN);
@@ -73,20 +83,33 @@ public class ModifyArticleHandler implements CommandHandler {
 			User authUser =(User)req.getSession().getAttribute("authUser");
 			String noVal = req.getParameter("no");
 			int no = Integer.parseInt(noVal);
-			
+			/*
+			 * POST방식으로 수정할 제목, 내용을 받음 
+			 * POST方式で修正するタイトル、内容を受け取る
+			 */
 			ModifyRequest modReq = new ModifyRequest(authUser.getId(),no,
 					req.getParameter("title"),
 					req.getParameter("content"));
+			
 			req.setAttribute("modReq", modReq);
 			
 			
 			Map<String, Boolean> errors = new HashMap<>();
 			req.setAttribute("errors", errors);
+			/*
+			 * 수정할 공지사항의 제목과 내용이 입력되지 않을 시 FORM_VIEW로 돌아감
+			 * 修正するお知らせのタイトルと内容が入力されない場合、FORM_VIEWに戻る
+			 */
 			modReq.validate(errors);
+			
 			if(!errors.isEmpty()) {
 				return FORM_VIEW;
 				
 			}try {
+				/*
+				 * 공지사항 수정 
+				 * お知らせの修正
+				 */
 				modifyService.modify(modReq);
 				return"/WEB-INF/view/modifySuccess.jsp";
 			}catch(ArticleNotFoundException e) {

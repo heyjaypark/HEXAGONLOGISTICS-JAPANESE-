@@ -1,5 +1,7 @@
 package sales.model;
 
+/*판매이력 테이블을 불러와 저장할 VO생성
+ * 販売履歴テーブルを読み込んで保存するVO生成*/
 public class SalesList {
 
 	private int s_Num;	

@@ -14,25 +14,18 @@ public class ListSalesService {
 	
 	
 	private SalesDao salesDao = new SalesDao();
-	/*게시글의 개수 10개*/
 	private int size = 10;
 	
-	/*pageNum에 해당하는 게시글 목록을 구한다. salesDao.select() 메서드의
-	 * 두 번째 파라미터는 조회할 레코드의 시작 행이다.
-	 * 시작 행은 0번 기준으로 (pageNum-1)*size를 시작 행 번호로 사용한다.
-	 * 예를 들어, 3페이지를 요청하면 (3-1)*10인 20을 시작행 번호로 사용한다.
-	 * 3페이지는 21번째 레코드부터 10개의 레코드를 구하므로, 시작행 번호는 20이 된다.
-	 */
-	
-	/* SalesPage 객체를 리턴한다*/
+	/*	pageNum에 해당하는 판매목록을 가져온 후 페이지 객체를 반환한다.
+	 * 	크기는 10개 단위로, 페이지번호에 따른 위치의 행을 조회한다.
+	 * 
+	 * 	pageNumに該当する販売リストを取得した後、ページオブジェクトを返す。
+	 * 	大きさは10個単位で、ページ番号に応じた位置の行を照会する。 */
 	public SalesPage getSalesPage(int pageNum) {
 		try(Connection conn = ConnectionProvider.getConnection()) {
 			int total = salesDao.selectCount(conn);
 			System.out.println("salesListService:" + pageNum);
 			
-			/*
-			 * select1
-			 * */
 			List<SalesList> content = salesDao.select1(conn, (pageNum - 1)* size+1, size * pageNum);
 			return new SalesPage(total, pageNum, size, content);		
 		} catch (SQLException e) {

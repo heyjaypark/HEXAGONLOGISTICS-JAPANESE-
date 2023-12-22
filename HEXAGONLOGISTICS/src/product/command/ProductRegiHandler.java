@@ -12,6 +12,8 @@ import product.model.ProductRequest;
 import product.service.NoMinusException;
 import product.service.ProductRegiService;
 
+//이 클래스는 상품 등록을 처리하는 핸들러 클래스입니다.
+//このクラスは商品の登録を処理するハンドラークラスです。
 public class ProductRegiHandler implements CommandHandler {
 
 	private static final String FORM_VIEW = "/WEB-INF/view/Productregi.jsp";
@@ -46,65 +48,52 @@ public class ProductRegiHandler implements CommandHandler {
 		int p_incheon = 0;
 		int price = 0;
 
-		
+		// 에러를 담을 맵을 생성하고 기본값으로 설정합니다.
+		// エラーを保持するためのMapを作成し、デフォルト値を設定します。
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
 		errors.put("numberInsert", null);
 		errors.put("duplicateno", Boolean.FALSE);
 
-		/* productReq.validate(errors); */
-
-		/*
-		 * if (!errors.isEmpty()) { return FORM_VIEW; }
-		 */ 
-		 
-		 
-
 		try {
-			
-			p_no = Integer.parseInt(p_noval);
+			// 입력값을 숫자로 변환합니다.
+			// 入力値を数字に変換します。
 			p_seoul = Integer.parseInt(p_seoulval);
 			p_suwon = Integer.parseInt(p_suwonval);
 			p_incheon = Integer.parseInt(p_incheonval);
 			price = Integer.parseInt(p_priceval);
-if(p_seoul<0 || p_suwon<0 || p_incheon<0) {
-			throw new NoMinusException();
-			
+			// 음수가 입력된 경우 예외를 발생시킵니다.
+			// 負の値が入力された場合、例外を発生させます。
+			if (p_seoul < 0 || p_suwon < 0 || p_incheon < 0) {
+				throw new NoMinusException();
 
+			} else {
+				// ProductRequest 객체에 값을 설정합니다.
+				// ProductRequestオブジェクトに値を設定します。
+				productReq.setP_name(req.getParameter("p_name"));
+				productReq.setP_seoul(p_seoul);
+				productReq.setP_suwon(p_suwon);
+				productReq.setP_incheon(p_incheon);
+				productReq.setPrice(price);
+				System.out.println(p_no);
 
-}else {
-	productReq.setP_no(p_no);
-	productReq.setP_name(req.getParameter("p_name"));
-	productReq.setP_seoul(p_seoul);
-	productReq.setP_suwon(p_suwon);
-	productReq.setP_incheon(p_incheon);
-	productReq.setPrice(price);
-	System.out.println(p_no);
-	
-	productService.productregi(productReq);
-	 errors.put("successRegi", Boolean.TRUE); 
-	 return "/WEB-INF/view/Productregi.jsp"; 
-} }catch(NoMinusException e) {
-	errors.put("NoMinus", Boolean.TRUE);
-	return FORM_VIEW;
-	
-	
+				productService.productregi(productReq);
+				errors.put("successRegi", Boolean.TRUE);
+				return "/WEB-INF/view/Productregi.jsp";
 
-			
-	
-		} catch (NumberFormatException e) {
-
-			// TODO: handle exception
-			errors.put("numberInsert", Boolean.TRUE);
+			}
+		} catch (NoMinusException e) {
+			// 음수 예외가 발생한 경우 에러를 설정하고 폼 뷰로 이동합니다
+			// 負の数の例外が発生した場合、エラーを設定してフォームビューに移動します。
+			errors.put("NoMinus", true);
 			return FORM_VIEW;
-		}catch (DuplicateIdException e) {
-
-			// TODO: handle exception
-			errors.put("duplicateno", Boolean.TRUE);
+		} catch (NumberFormatException e) {
+			/*
+			 * 입력값이 포맷과 맞지않을 경우 에러를 설정하고 폼 뷰로 이동합니다. 
+			 * 入力値がフォーマットと合わない場合は、エラーを設定してフォームビューに移動します。
+			 */
+			errors.put("numberInsert", Boolean.TRUE);
 			return FORM_VIEW;
 		}
 	}
 }
-
-
-

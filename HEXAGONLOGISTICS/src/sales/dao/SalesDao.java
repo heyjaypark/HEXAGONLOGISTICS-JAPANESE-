@@ -17,6 +17,10 @@ import sales.model.SalesList;
 
 public class SalesDao {
 
+	/*
+	 * 판매이력을 입력하기 전 품목코드를 검색할때 사용하는 메소드 
+	 * 販売履歴を入力する前に品目コードを検索する際に使用するメソッド
+	 */
 	public Product selectByP_no(Connection conn, String p_no) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -42,6 +46,10 @@ public class SalesDao {
 		}
 	}
 
+	/*
+	 * 판매이력을 입력하기 위해 사용하는 메소드 
+	 * 販売履歴を入力するために使用するメソッド
+	 */
 	public void insert(Connection conn, RegistRequest sal) throws SQLException {
 		try (PreparedStatement pstmt = conn
 				.prepareStatement("insert into sales_list values(S_SALES_LIST.NEXTVAL,?,?,?,?,?)")) {
@@ -54,6 +62,10 @@ public class SalesDao {
 		}
 	}
 
+	/*
+	 * 판매이력을 입력시 해당 수량만큼 재고리스트의 값을 빼기 위한 메소드 
+	 * 販売履歴を入力する際、その数量だけ在庫リストの値を引くためのメソッド
+	 */
 	public void update(Connection conn, RegistRequest salesReq) throws SQLException {
 		try (PreparedStatement pstmt = conn.prepareStatement(
 				"update PRODUCT_LIST set P_SEOUL=P_SEOUL-?, P_SUWON=P_SUWON-?,P_INCHEON=P_INCHEON-? where P_NO=?")) {
@@ -66,6 +78,10 @@ public class SalesDao {
 
 	}
 	
+	/*
+	 * 전체 판매이력의 출력 페이징을 위한 메소드
+	 *  販売履歴全体の出力ページングのためのメソッド
+	 */
 	public List<SalesList> select1(Connection conn, int startRow, int size) throws SQLException {
 		
 		PreparedStatement pstmt = null;
@@ -98,7 +114,10 @@ public class SalesDao {
 	
 	
 	
-	
+	/*
+	 * 판매이력의 총 페이지수를 구하기 위한 메소드
+	 * 販売履歴の総ページ数を求めるためのメソッド
+	 */
 	public int selectCount(Connection conn) throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -133,7 +152,8 @@ public class SalesDao {
 	}
 	
 	/*
-	 * p_no로 검색했을 때 총 개수를 볼 수 있는 DAO
+	 * 품목코드로 검색한 결과의 총페이지수를 구하기 위한 메소드
+	 * 品目コードで検索した結果の総ページ数を求めるためのメソッド
 	 * */
 	public int searchCount(Connection conn, int code) throws SQLException {
 		PreparedStatement pstmt = null;
@@ -161,6 +181,10 @@ public class SalesDao {
 		}
 	}
 
+	/*
+	 * 판매이력을 품목코드로 검색한 결과를 페이징출력하기 위한 메소드 
+	 * 販売履歴を品目コードで検索した結果をページング出力するためのメソッド
+	 */
 public List<SalesList> select2(Connection conn, int startRow, int size, int code) throws SQLException {
 		
 		PreparedStatement pstmt = null;
@@ -191,6 +215,11 @@ public List<SalesList> select2(Connection conn, int startRow, int size, int code
 		}
 	}
 
+	
+	/*
+	 * 판매이력을 거래번호로 검색한 결과의 총 페이지 수를 구하기 위한 메소드 
+	 * 販売履歴を取引番号で検索した結果の総ページ数を求めるためのメソッド
+	 */
 public int searchCount2(Connection conn, int code) throws SQLException {
 	PreparedStatement pstmt = null;
 	Statement stmt = null;
@@ -216,7 +245,10 @@ public int searchCount2(Connection conn, int code) throws SQLException {
 
 	}
 }
-
+/*
+ * 판매이력을 거래번호로 검색한 결과를 페이징출력하기 위한 메소드
+ * 販売履歴を取引番号で検索した結果をページング出力するためのメソッド
+ */
 public List<SalesList> select3(Connection conn, int startRow, int size, int code) throws SQLException {
 	
 	PreparedStatement pstmt = null;

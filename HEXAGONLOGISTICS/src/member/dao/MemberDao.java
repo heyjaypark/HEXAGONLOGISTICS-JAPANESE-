@@ -12,6 +12,8 @@ import member.model.Member;
 
 public class MemberDao {
 	
+	// 아이디를 기반으로 회원 정보를 조회하는 메소드
+	// IDを基にして会員情報を検索するメソッド
 	public Member selectById(Connection conn, String id) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -33,11 +35,15 @@ public class MemberDao {
 			JdbcUtil.close(pstmt);
 		}
 	}
-	
+
+	// Timestamp를 Date로 변환하는 메소드
+	// TimestampをDateに変換するメソッド
 	private Date toDate(Timestamp date) {
 		return date == null ? null : new Date(date.getTime());
 	}
 	
+	// 회원 정보를 삽입하는 메소드
+	// 会員情報を挿入するメソッド
 	public void insert(Connection conn, Member mem) throws SQLException {
 		try(PreparedStatement pstmt =
 				conn.prepareStatement("insert into member_list values(?,?,?)")) {
@@ -47,7 +53,9 @@ public class MemberDao {
 			pstmt.executeUpdate();
 		}
 	}
-		
+
+		 // 회원 정보를 업데이트하는 메소드	
+		// 会員情報を更新するメソッド	
 		public void update(Connection conn, Member member) throws SQLException {
 			try (PreparedStatement pstmt = conn.prepareStatement(
 					"update member set name = ?, password = ? where memberid = ?")) {

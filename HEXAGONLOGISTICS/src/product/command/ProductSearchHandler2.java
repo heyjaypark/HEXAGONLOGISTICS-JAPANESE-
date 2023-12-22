@@ -10,10 +10,12 @@ import mvc.command.CommandHandler;
 import product.model.Product;
 import product.service.ProductSearchService;
 
+//이 클래스는 재고 수정페이지의 상품 검색을 처리하는 핸들러 클래스입니다.
+//このクラスは、在庫修正ページの商品検索を処理するハンドラークラスです。
 public class ProductSearchHandler2 implements CommandHandler {
 
 	private static final String FORM_VIEW = "/WEB-INF/view/Productregi.jsp";
-	 private ProductSearchService productsearch = new ProductSearchService(); 
+	private ProductSearchService productsearch = new ProductSearchService();
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -32,51 +34,32 @@ public class ProductSearchHandler2 implements CommandHandler {
 	}
 
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
-		String p_noval=req.getParameter("p_no");
-		/*
-		 * String p_name=req.getParameter("p_name"); String
-		 * p_seoulval=req.getParameter("p_seoul"); String
-		 * p_suwonval=req.getParameter("p_suwon"); String
-		 * p_incheonval=req.getParameter("p_incheon"); String
-		 * p_priceval=req.getParameter("price");
-		 */
+		String p_noval = req.getParameter("p_no");
+
 		int p_no = 0;
-		/*
-		 * int p_seoul = 0; int p_suwon = 0; int p_incheon = 0; int price = 0;
-		 */
-	
-		
-		p_no=Integer.parseInt(p_noval);
-		/*
-		 * p_seoul=Integer.parseInt(p_seoulval); p_suwon=Integer.parseInt(p_suwonval);
-		 * p_incheon=Integer.parseInt(p_incheonval); price=Integer.parseInt(p_priceval);
-		 */
-	
-		
+
+		// 에러를 저장할 Map을 만들고 기본값을 설정합니다.
+		// エラーを保存するためのMapを作成し、デフォルト値を設定します。
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
-		errors.put("NumberFormatException",Boolean.FALSE);
-		
-		/*
-		 * try { User user = loginService.login(id, password);
-		 * req.getSession().setAttribute("authUser", user);
-		 * res.sendRedirect(req.getContextPath() + "/index.jsp"); return null; } catch
-		 * (LoginFailException e) { errors.put("idOrPwNotMatch", Boolean.TRUE); return
-		 * FORM_VIEW; }
-		 * 
-		 */
-		
-		try { p_no=Integer.parseInt(p_noval);
-		
+		errors.put("NumberFormatException", Boolean.FALSE);
+
+		try {
+			// 입력 값을 숫자로 변환합니다.
+			// 入力値を数字に変換します。
+			p_no = Integer.parseInt(p_noval);
+			// 상품 검색 서비스를 호출합니다.
+			// 商品検索サービスを呼び出します。
 			Product product1 = productsearch.SearchProduct(p_no);
-			 errors.put("notnull",Boolean.TRUE); 
+			errors.put("notnull", Boolean.TRUE);
 			req.setAttribute("product1", product1);
 			return "/WEB-INF/view/Productupdates.jsp";
-			}catch(NumberFormatException e) {
-				errors.put("NumberFormatException", Boolean.TRUE);
-				return "/WEB-INF/view/Productupdates.jsp";
-			}
-		
-		
+		} catch (NumberFormatException e) {
+			// 숫자 변환 예외가 발생한 경우, 에러를 설정하고 뷰로 이동합니다.
+			// 数字変換例外が発生した場合、エラーを設定してビューに移動します。
+			errors.put("NumberFormatException", Boolean.TRUE);
+			return "/WEB-INF/view/Productupdates.jsp";
+		}
+
 	}
 }

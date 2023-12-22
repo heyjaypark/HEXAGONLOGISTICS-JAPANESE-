@@ -20,6 +20,10 @@ public class ReadArticleHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res)throws Exception{
 		// TODO Auto-generated method stub
+		/*
+		 * GET방식으로 보낸 페이지 No를 받음 
+		 * GET方式で送ったページNoを受け取る
+		 */
 	String noVal=req.getParameter("no");
 	int articleNum = Integer.parseInt(noVal);
 	try {

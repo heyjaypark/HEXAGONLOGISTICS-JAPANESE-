@@ -139,7 +139,7 @@ float: right;
     
 </style>
 </head>
-<div align="center">
+
 <body>
  <header>
 <h1><a href="index.jsp">Hexagon Logistics ver 1.0</a></h1>
@@ -159,17 +159,21 @@ float: right;
 
 
 <br/><br/><br/><br/>
+
+<!-- 로그인 폼과 오류메세지
+ログインフォームとエラーメッセージ -->
 <form action="login.do" method="post">
+<div align="center">
 <c:if test="${errors.idOrPwNotMatch}">
 社員番号とパスワードが一致しません。
 </c:if>
 <p>
 社員番号:<br/><input type="text" name="id" value="${param.id}">
-<c:if test="${errors.id}">社員番号を入力してください。</c:if>
+<c:if test="${errors.id}"><br/>社員番号を入力してください。</c:if>
 </p>
 <p>
 パスワード:<br/><input type="password"  name="password">
-<c:if test="${errors.password}">パスワードを入力してください。</c:if>
+<c:if test="${errors.password}"><br/>パスワードを入力してください。</c:if>
 </p>
 <section>
 <button class="submit-button">ログイン</button>

@@ -144,7 +144,6 @@ float: right;
 			<u:isLogin>
     ${authUser.name}様こんにちは。
 <a href="logout.do">[ログアウト]</a>
-				<!-- <a href="changePwd.do">[암호변경하기]</a> -->
 			</u:isLogin>
 		</div>
 	</header>
@@ -164,7 +163,7 @@ float: right;
 
 </p>
 <p>
-	삭제하시겠습니까?
+	削除しますか？
 </p>
 
 <button class=submit-button>削除</button>

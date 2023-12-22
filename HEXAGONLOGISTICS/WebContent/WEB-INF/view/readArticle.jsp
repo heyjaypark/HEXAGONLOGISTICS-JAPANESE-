@@ -145,7 +145,6 @@ float: right;
     <u:isLogin>
     ${authUser.name}様こんにちは。
 <a href="logout.do">[ログアウト]</a>
-<!-- <a href="changePwd.do">[암호변경하기]</a> -->
 </u:isLogin>
 
 
@@ -164,7 +163,6 @@ float: right;
 	</nav>
 
 <div align="center">
-	<!-- <link rel="stylesheet" type="text/css" href="css/main.css"> -->
 <table border="1">
 <tr>
 <td>No</td>
@@ -184,8 +182,11 @@ float: right;
 </tr>
 <tr>
 <td colspan="2">
+
 <c:set var="pageNo" value="${empty param.pageNo ? '1' : param.pageNo}" />
 <a href="list.do?pageNo=${pageNo}"><button class=submit-button>投稿リストへ</button></a>
+<!-- 로그인한 유저가 작성자라면 상세 기능 버튼을 표시한다
+ログインしたユーザーが作成者であれば詳細機能ボタンを表示する -->
 <c:if test="${authUser.id == articleData.article.writer.id}">
 <a href="modify.do?no=${articleData.article.number}"><button class=submit-button>投稿修正</button></a>
 <a href="delete.do?no=${articleData.article.number}"><button class=submit-button>投稿削除</button></a>

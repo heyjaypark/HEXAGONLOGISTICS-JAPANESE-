@@ -6,80 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>販売登録</title>
-<script> // 행 추가하는 버튼 함수
-function addRow() {
-    var table = document.getElementById("myTable");
-    var newRow = table.insertRow(-1); // 테이블 마지막에 새 행 추가
-
-    var cell1 = newRow.insertCell(0); // 행에 새로운 셀 추가
-    var input1 = document.createElement("input");
-    input1.type = "text";
-    input1.name = "p_no[]";
-    cell1.appendChild(input1);
-
-    var cell2 = newRow.insertCell(1); // 행에 새로운 셀 추가
-    var input2 = document.createElement("input");
-    input2.type = "text";
-    input2.name = "p_name[]";
-    cell2.appendChild(input2);
-    
-    newRow.insertCell(2);
-    
-    var cell4 = newRow.insertCell(3); // 행에 새로운 셀 추가
-    var input4 = document.createElement("input");
-    input4.type = "text";
-    input4.name = "s_seoul[]";
-    cell4.appendChild(input4);
-
-    newRow.insertCell(4);
-
-    var cell6 = newRow.insertCell(5); // 행에 새로운 셀 추가
-    var input6 = document.createElement("input");
-    input6.type = "text";
-    input6.name = "s_suwon[]";
-    cell6.appendChild(input6);
-
-    newRow.insertCell(6);
-
-
-    var cell8 = newRow.insertCell(7); // 행에 새로운 셀 추가
-    var input8 = document.createElement("input");
-    input8.type = "text";
-    input8.name = "s_incheon[]";
-    cell8.appendChild(input8);
-
-    var cell9 = newRow.insertCell(8); // 행에 새로운 셀 추가
-    var input9 = document.createElement("input");
-    input9.type = "text";
-    input9.name = "price[]";
-    cell9.appendChild(input9);
-
-    var cell10 = newRow.insertCell(9); // 행에 새로운 셀 추가
-    var input10 = document.createElement("input");
-    input10.type = "date";
-    input10.name = "s_date[]";
-    cell10.appendChild(input10);
-
-    var cell11 = newRow.insertCell(10); // 행에 새로운 셀 추가
-    var deleteButton = document.createElement("button");
-    deleteButton.type = "button";
-    deleteButton.className = "delete-button";
-    deleteButton.innerHTML = "삭제";
-    deleteButton.onclick = function() {
-        deleteRow(this);
-    };
-    cell11.appendChild(deleteButton);
-}
-
-function deleteRow(element) {
-    var row = element.parentNode.parentNode; // 버튼의 부모의 부모는 해당 행(tr)입니다.
-    var table = row.parentNode; // 행을 포함한 테이블을 찾습니다.
-    table.deleteRow(row.rowIndex); // 해당 행을 삭제합니다.
-}
-
-</script>
-
-
 
 
 <style>
@@ -208,7 +134,8 @@ float: right;
 </head>
 <body>
 
-
+<!-- 에러 종류에 따른 메세지 출력
+エラーの種類によるメッセージ出力 -->
 
 <c:if test="${errors.salesDateError}">
     <script type="text/javascript">
@@ -250,6 +177,11 @@ alert("${databaseErrorMessage}");
 alert("${unknownErrorMessage}");
 </script>
 </c:if>
+<c:if test="${errors.success}">
+<script type="text/javascript">
+alert("登録されました。");
+</script>
+</c:if>
 
 
     <header>
@@ -261,7 +193,6 @@ alert("${unknownErrorMessage}");
     <u:isLogin>
     ${authUser.name}様こんにちは。
 <a href="logout.do">[ログアウト]</a>
-<!-- <a href="changePwd.do">[암호변경하기]</a> -->
 </u:isLogin>
 
 
@@ -283,6 +214,8 @@ alert("${unknownErrorMessage}");
                 <button type="submit">販売履歴ページへ</button>
             </form>
         </div>
+        <!-- 판매하려는 품목의 정보를 검색
+        販売したい品目の情報を検索 -->
         <div>
             <c:if test="${errors.p_no}">品目コードを入力してください。</c:if>
             <form action="selectSales.do" method="post">
@@ -308,6 +241,10 @@ alert("${unknownErrorMessage}");
         <th>日付</th>
         <th>action</th>
     </tr>
+    <!-- 검색성공시 행을 추가해 품목정보를 보여주고,
+    판매에 필요한 데이터를 입력한다.
+    検索成功時に行を追加して品目情報を表示し
+    販売に必要なデータを入力する -->
     <c:if test="${not empty prod.p_no }">
     <tr>
     <td><input type="hidden" name="p_no" value="${prod.p_no}">${prod.p_no }</td>
@@ -324,7 +261,6 @@ alert("${unknownErrorMessage}");
     </tr>
     </c:if>
     </table>
-<!--    <button onclick="addRow()">+</button>-->
     <c:if test="${not empty prod.p_no }">
     <button type="submit" class="submit-button">登録</button>
     </c:if>

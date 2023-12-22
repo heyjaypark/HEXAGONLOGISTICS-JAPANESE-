@@ -38,7 +38,8 @@ public class SelectSalesHandler implements CommandHandler {
 		
 		int p_no = 0;
 		String p_noVal = req.getParameter("p_no");
-		
+		/*품목번호는 정수여야한다.
+		 *品目番号は整数でなければならない。*/
 	    if (p_noVal == null || p_noVal.trim().isEmpty()) {
 	        Map<String, Boolean> errors = new HashMap<>();
 	        errors.put("p_no", true);
@@ -56,8 +57,10 @@ public class SelectSalesHandler implements CommandHandler {
 	        return FORM_VIEW;
 	    }
 		
-		System.out.println(p_no);
 		
+		
+		 /*select 메서드를 실행해 결과를 반환한다.
+	     * セレクトメソッドを実行して結果を返す。*/
 		prod = selectProduct.selectProduct(p_no);
 		
 		salesReq.setP_no(p_no);

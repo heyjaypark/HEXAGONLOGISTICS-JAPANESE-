@@ -1,5 +1,7 @@
 package article.model;
 
+/*공지사항 작성자를 담기위한 VO
+お知らせ作成者を盛り込むためのVO*/
 public class Writer {
 	
 	private String id;

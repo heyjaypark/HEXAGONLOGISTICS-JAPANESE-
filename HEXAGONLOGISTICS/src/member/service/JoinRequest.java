@@ -34,10 +34,14 @@ public class JoinRequest {
 		this.confirmPassword = confirmPassword;
 	}
 	
+	// 비밀번호와 확인 비밀번호가 일치하는지 확인
+	// パスワードと確認用パスワードが一致するかどうかを確認
 	public boolean isPasswordEqualToConfirm() {
 		return password != null && password.equals(confirmPassword);
 	}
 	
+	// 유효성 검사를 수행하는 메서드
+	// バリデーションを実行するメソッド
 	public void validate(Map<String, Boolean> errors) {
 		checkEmpty(errors, id, "id");
 		checkEmpty(errors, name, "name");
@@ -50,6 +54,8 @@ public class JoinRequest {
 		}
 	}
 	
+	// 값이 비어있는지 확인하는 메서드
+	// 値が空であるかを確認するメソッド
 	private void checkEmpty(Map<String, Boolean> errors,
 			String value, String fieldName) {
 		if(value == null || value.isEmpty())

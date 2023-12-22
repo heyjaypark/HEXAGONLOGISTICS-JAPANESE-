@@ -22,11 +22,14 @@ public class ArticlePage {
 			totalPages=0;
 			startPage=0;
 			endPage=0;
+			/* 마지막페이지를 추가하는 로직
+			 * 最後のページを追加するロジック*/
 		}else {
 			totalPages=total/size;
 			if(total%size>0) {
 				totalPages++;
-			}
+			}/* 페이지번호를 1부터 5개씩 출력하고 마지막페이지가 총페이지보다 크지 않도록한다
+			 * ページ番号を5つずつ出力し、最後のページが総ページより大きくないようにする */
 			int modVal=currentPage %5;
 			startPage = currentPage / 5* 5 + 1;
 			if(modVal ==0) startPage-=5;

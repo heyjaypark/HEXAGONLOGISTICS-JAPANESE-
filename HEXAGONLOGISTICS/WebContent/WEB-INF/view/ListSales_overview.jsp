@@ -141,7 +141,6 @@ float: right;
 			<u:isLogin>
     ${authUser.name}様こんにちは。
 <a href="logout.do">[ログアウト]</a>
-				<!-- <a href="changePwd.do">[암호변경하기]</a> -->
 			</u:isLogin>
 		</div>
 	</header>
@@ -179,6 +178,8 @@ float: right;
 				<th>仁川店販売量</th>
 				<th>日付</th>
 				<th>短歌</th>
+				<th>Total</th>
+				
 			</tr>
 			
 			<c:if test="${salesPage.hasNoArticles()}">
@@ -187,24 +188,19 @@ float: right;
 				</tr>
 			</c:if>
 			
+			<!-- 판매이력 리스트
+			販売履歴リスト -->
 			<c:forEach var="sales" items="${salesPage.content}">
 				<tr>
-					<!-- 거래 번호  -->
 					<td>${sales.s_Num}</td>
-					<!-- 품목번호 -->
 					<td>${sales.p_No}</td>
-					<!-- 품목명 -->
 					<td>${sales.p_Name}</td>
-					<!-- 서울점 -->
 					<td>${sales.s_Seoul}</td>
-					<!-- 수원점 -->
 					<td>${sales.s_Suwon}</td>
-					<!-- 인천점 -->
 					<td>${sales.s_Incheon}</td>
-					<!-- 날짜 -->
 					<td>${sales.s_Date}</td>
-					<!-- 가격 -->
 					<td>${sales.price}</td>
+					<td>${sales.price*(sales.s_Seoul+sales.s_Suwon+sales.s_Incheon)}</td>
 				</tr>
 			</c:forEach>
 			<c:if test="${salesPage.hasArticles()}">		
@@ -213,6 +209,8 @@ float: right;
 			</tr>	
 			<tr>
 			<td colspan="4">
+						<!-- 페이징 코드. 단위는 5개
+						ページングコード。 単位は五つ -->
 				<c:if test="${salesPage.startPage > 5}">
 					<a href="salesList.do?pageNo=${salesPage.startPage - 5}">[以前]</a>
 				</c:if>
@@ -229,5 +227,8 @@ float: right;
 		</c:if>
 		</table>
 	</div>
+	  <footer>
+<p>&copy; 2023 Hexagon Logistics. All rights reserved.</p>
+</footer>
 </body>
 </html>

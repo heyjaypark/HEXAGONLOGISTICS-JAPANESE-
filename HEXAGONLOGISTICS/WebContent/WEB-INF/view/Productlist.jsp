@@ -165,7 +165,9 @@ float: right;
 <p>
 品目コード:<input type="text" name="p_no" value="${param.p_no}"><input type="submit" value="検索">
 <br/>
-<c:if test="${errors.NumberFormatException}">品目コードを入力してください。</c:if>
+<c:if test="${errors.NumberFormatException}">
+品目コードを入力してください。
+</c:if>
 </p>
 </form>
 
@@ -175,12 +177,12 @@ float: right;
 
 </tr>
 <tr>
-<td>品目コード入力</td>
-<td>品目名</td>
-<td>ソウル店</td>
-<td>水原店</td>
-<td>仁川店</td>
-<td>短歌</td>
+<th>品目コード入力</th>
+<th>品目名</th>
+<th>ソウル店</th>
+<th>水原店</th>
+<th>仁川店</th>
+<th>短歌</th>
 
 </tr>
 
@@ -190,6 +192,8 @@ float: right;
 </tr>
 </c:if>
 
+<!-- 특정품목 검색시 결과를 표시하고 테이블을 닫는다.
+特定品目検索時に結果を表示し、テーブルを閉じる。 -->
 <c:if test= "${errors.notnull}">
 <tr>
 <td>
@@ -213,7 +217,8 @@ ${product1.price}
 </tr>
 </table>
 </c:if>
-
+<!-- 페이지에 따른 품목리스트 표시
+ページによる品目リストの表示 -->
 <c:forEach var="product" items="${productPage.content}">
 <tr>
 <td>
@@ -237,6 +242,9 @@ ${product.price}
 
 </tr>
 </c:forEach>
+
+<!-- 페이징 코드. 단위는 5개.
+ページングコード。 単位は5つ。 -->
 <c:if test="${productPage.hasArticles()}">
 <tr>
 <td colspan="4">
@@ -256,5 +264,8 @@ end="${productPage.endPage}">
 </c:if>
 </table>
 </div>
+  <footer>
+<p>&copy; 2023 Hexagon Logistics. All rights reserved.</p>
+</footer>
 </body>
 </html>

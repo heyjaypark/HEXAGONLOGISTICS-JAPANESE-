@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>재고 관리</title>
+<title>在庫管理</title>
 
 <style>
 
@@ -171,18 +171,15 @@ float: right;
 	<table border="1">
 
 <tr>
-<td>品目コード</td>
-<td>品目名</td>
-<td>ソウル店</td>
-<td>水原店</td>
-<td>仁川店</td>
-<td>短歌</td>
+
+<th>品目名</th>
+<th>ソウル店</th>
+<th>水原店</th>
+<th>仁川店</th>
+<th>短歌</th>
 </tr>
 <tr>
-<td>
-<input type="text" name="p_no" size="27%" value="${param.p_no }"/>
 
-</td>
 <td>
 <input type="text" name="p_name" size="27%"/>
 </td>
@@ -201,10 +198,17 @@ float: right;
 </tr>
 </table>
 
-<c:if test="${errors.numberInsert}">品目コードを入力してください。</c:if>
-<c:if test="${errors.duplicateno}">すでに登録されている品目コードです。</c:if>
-<c:if test="${errors.NoMinus}">正数を入力してください。</c:if>
 <button type="submit" class="submit-button">登録</button>
+
+<!-- 에러발생 및 등록 성공시 -->
+<c:if test="${errors.NoMinus}">
+正数を入力してください
+</c:if>
+
+<c:if test="${errors.numberInsert}">
+入力してください
+</c:if>
+
 
 <c:if test="${errors.successRegi}">
 <script type="text/javascript">

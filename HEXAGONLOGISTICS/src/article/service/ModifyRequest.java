@@ -2,6 +2,8 @@ package article.service;
 
 import java.util.Map;
 
+/*공지사항 수정시 수정할 정보를 담는 VO
+お知らせ 修正時に修正する情報を含むVO*/
 public class ModifyRequest {
 	
 	private String userId;

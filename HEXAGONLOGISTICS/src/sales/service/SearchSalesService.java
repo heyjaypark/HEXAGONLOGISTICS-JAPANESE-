@@ -31,9 +31,7 @@ public class SearchSalesService {
 			int total = salesDao.searchCount(conn, code);
 			System.out.println("SearchSalesService:" + total);
 			
-			/*
-			 * select1
-			 * */
+		
 			List<SalesList> content = salesDao.select2(conn, (pageNum - 1)* size+1, size * pageNum, code);		
 			
 			return new SalesPage(total, pageNum, size, content);		
@@ -48,9 +46,7 @@ public class SearchSalesService {
 			int total = salesDao.searchCount2(conn, code);
 			System.out.println("SearchSalesService:" + total);
 			
-			/*
-			 * select1
-			 * */
+	
 			List<SalesList> content = salesDao.select3(conn, (pageNum - 1)* size+1, size * pageNum, code);		
 			
 			return new SalesPage(total, pageNum, size, content);		

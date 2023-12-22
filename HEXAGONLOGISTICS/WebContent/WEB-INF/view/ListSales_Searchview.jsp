@@ -141,7 +141,6 @@ float: right;
 			<u:isLogin>
     ${authUser.name}様こんにちは。
 <a href="logout.do">[ログアウト]</a>
-				<!-- <a href="changePwd.do">[암호변경하기]</a> -->
 			</u:isLogin>
 		</div>
 	</header>
@@ -156,6 +155,8 @@ float: right;
 	<div>
 		<a href="registSales.do"><button>販売登録ページへ</button></a>
 		
+		<!-- 판매번호 또는 품목번호로 검색할 수 있다
+		販売番号または品目番号で検索できる -->
 		<form action="salesSearch.do" name="p_no" method="post">
 			<div>
 				<select name="select_num" >
@@ -182,32 +183,26 @@ float: right;
 				<th>仁川店販売量</th>
 				<th>日付</th>
 				<th>短歌</th>
+				<th>Total</th>
 			</tr>
-			<!-- 아래 salesPage란 이름은 내가 가라로 넣은 것  -->
 			<c:if test="${salesPage.hasNoArticles()}">
 				<tr>
 					<td colspan="7">該当販売履歴がありません。</td>
 				</tr>
 			</c:if>
-			
+			<!-- 판매리스트를 표시한다
+			販売リスト表示 -->
 			<c:forEach var="sales" items="${salesPage.content}">
 				<tr>
-					<!-- 거래 번호  -->
 					<td>${sales.s_Num}</td>
-					<!-- 품목번호 -->
 					<td>${sales.p_No}</td>
-					<!-- 품목명 -->
 					<td>${sales.p_Name}</td>
-					<!-- 서울점 -->
 					<td>${sales.s_Seoul}</td>
-					<!-- 수원점 -->
 					<td>${sales.s_Suwon}</td>
-					<!-- 인천점 -->
 					<td>${sales.s_Incheon}</td>
-					<!-- 날짜 -->
 					<td>${sales.s_Date}</td>
-					<!-- 가격 -->
 					<td>${sales.price}</td>
+					<td>${sales.price*(sales.s_Seoul+sales.s_Suwon+sales.s_Incheon)}</td>
 				</tr>
 			</c:forEach>
 			<c:if test="${salesPage.hasArticles()}">		
@@ -216,21 +211,26 @@ float: right;
 			</tr>	
 			<tr>
 			<td colspan="4">
+			<!-- 페이징 코드. 단위는 5개
+			ページングコード。 単位は五つ -->
 				<c:if test="${salesPage.startPage > 5}">
-					<a href="salesSearch.do?select_num=1&code=${param.code}&pageNo=${salesPage.startPage - 5}">[以前]</a>
+					<a href="salesSearch.do?select_num=2&code=${param.code}&pageNo=${salesPage.startPage - 5}">[以前]</a>
 				</c:if>
 				<c:forEach var="pNo"
 					begin="${salesPage.startPage}"
 					end="${salesPage.endPage}">
-					<a href="salesSearch.do?select_num=1&code=${param.code}&pageNo=${pNo}">[${pNo}]</a>
+					<a href="salesSearch.do?select_num=2&code=${param.code}&pageNo=${pNo}">[${pNo}]</a>
 				</c:forEach>
 				<c:if test="${salesPage.endPage < salesPage.totalPages}">
-				<a href="salesSearch.do?select_num=1&code=${param.code}&pageNo=${salesPage.startPage + 5}">[次のページへ]</a>
+				<a href="salesSearch.do?select_num=2&code=${param.code}&pageNo=${salesPage.startPage + 5}">[次のページへ]</a>
 				</c:if>
 			</td>
 		</tr>
 		</c:if>
 		</table>
 	</div>
+	  <footer>
+<p>&copy; 2023 Hexagon Logistics. All rights reserved.</p>
+</footer>
 </body>
 </html>

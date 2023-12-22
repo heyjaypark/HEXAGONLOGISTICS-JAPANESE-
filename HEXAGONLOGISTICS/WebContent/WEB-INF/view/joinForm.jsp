@@ -144,7 +144,6 @@ float: right;
 			<u:isLogin>
     ${authUser.name}様こんにちは。
 <a href="logout.do">[ログアウト]</a>
-				<!-- <a href="changePwd.do">[암호변경하기]</a> -->
 			</u:isLogin>
 		</div>
 	</header>
@@ -157,24 +156,26 @@ float: right;
   </ul>
 </nav>
 <div align="center">
+<!-- 회원가입에 필요한 정보 입력란
+会員登録に必要な情報入力欄 -->
 <form action="join.do" method="post">
 <p>
 社員番号:<br/><input type="text" name="id" value="${param.id}">
-<c:if test="${errors.id}">社員番号を入力してください。</c:if>
-<c:if test="${errors.duplicateId}">登録済みの社員番号です。</c:if>
+<c:if test="${errors.id}"><br>社員番号を入力してください。</c:if>
+<c:if test="${errors.duplicateId}"><br>登録済みの社員番号です。</c:if>
 </p>
 <p>
 名前:<br/><input type="text" name="name" value="${param.name}">
-<c:if test="${errors.name}">名前を入力してください。</c:if>
+<c:if test="${errors.name}"><br>名前を入力してください。</c:if>
 </p>
 <p>
 パスワード:<br/><input type="password" name="password">
-<c:if test="${errors.password}">パスワードを入力してください。</c:if>
+<c:if test="${errors.password}"><br>パスワードを入力してください。</c:if>
 </p>
 <p>
 パスワード確認:<br/><input type="password" name="confirmPassword">
-<c:if test="${errors.confirmPassword}">暗号確認を入力してください。</c:if>
-<c:if test="${errors.notMatch}">パスワードと確認が一致しません。</c:if>
+<c:if test="${errors.confirmPassword}"><br>暗号確認を入力してください。</c:if>
+<c:if test="${errors.notMatch}"><br>パスワードと確認が一致しません。</c:if>
 </p>
 <button class = submit-button>会員加入</button>
 </form>

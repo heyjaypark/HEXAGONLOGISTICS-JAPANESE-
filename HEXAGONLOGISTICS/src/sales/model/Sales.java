@@ -2,6 +2,8 @@ package sales.model;
 
 import java.sql.Date;
 
+/*판매입력 테이블에 데이터를 입력할 VO생성
+ * 販売入力テーブルにデータを入力するVO生成*/
 public class Sales {
 	
 	private int s_num;

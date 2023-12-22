@@ -9,7 +9,10 @@ import article.model.ArticleContent;
 import jdbc.JdbcUtil;
 
 public class ArticleContentDao {
-	
+	/*
+	 * 공지사항 내용 입력을 위한 메소드 
+	 * お知らせ内容入力のためのメソッド
+	 */
 	public ArticleContent insert(Connection conn, ArticleContent content)
 	throws SQLException{
 		PreparedStatement pstmt = null;
@@ -29,7 +32,10 @@ public class ArticleContentDao {
 		}
 	}
 
-		
+	/*
+	 * 공지사항 내용이 존재하는지 확인하는 메소드 
+	 * お知らせ内容が存在するか確認するメソッド
+	 */
 		public ArticleContent selectById(Connection conn, int no) throws SQLException{
 			PreparedStatement pstmt=null;
 			ResultSet rs = null;
@@ -52,7 +58,11 @@ public class ArticleContentDao {
 				
 			}
 		}
-		
+
+		/*
+		 * 공지사항 내용을 수정하기 위한 메소드 
+		 * お知らせ内容を修正するためのメソッド
+		 */
 		public int update(Connection conn, int no, String content) throws SQLException{
 			try(PreparedStatement pstmt= conn.prepareStatement("update article_content set content = ? where article_no = ?")){
 				pstmt.setString(1, content);
@@ -62,7 +72,11 @@ public class ArticleContentDao {
 					
 			}
 		}
-		
+
+		/*
+		 * 공지사항 내용을 삭제하기 위한 메소드 
+		 * お知らせ内容を削除するためのメソッド
+		 */
 		public int delete(Connection conn, int no, String content) throws SQLException{
 			try(PreparedStatement pstmt= conn.prepareStatement("delete from article_content where article_no = ?")){
 				pstmt.setInt(1, no);

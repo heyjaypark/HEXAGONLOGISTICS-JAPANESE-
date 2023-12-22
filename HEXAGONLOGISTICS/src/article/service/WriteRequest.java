@@ -4,6 +4,8 @@ import java.util.Map;
 
 import article.model.Writer;
 
+/*공지사항 정보를 담기위한 VO
+お知らせ情報を盛り込むためのVO*/
 public class WriteRequest {
 	
 	private Writer writer;

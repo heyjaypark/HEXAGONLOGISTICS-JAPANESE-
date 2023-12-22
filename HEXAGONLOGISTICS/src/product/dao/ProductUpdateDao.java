@@ -12,37 +12,39 @@ import jdbc.JdbcUtil;
 import product.model.Product;
 import product.model.ProductRequest;
 
-
 public class ProductUpdateDao {
-	
+	// 페이지별로 상품 리스트를 조회하는 메서드
+	// ページごとに商品リストを取得するメソッド
 	public List<Product> select1(Connection conn, int startRow, int size) throws SQLException {
-		
+
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Product> result = new ArrayList<>();
 		try {
 
-			pstmt = conn.prepareStatement("SELECT * FROM (SELECT ROWNUM AS NUM, product_list.* FROM product_list)WHERE NUM BETWEEN ? AND ? order by p_no");
-				  pstmt.setInt(1, startRow);
-				  pstmt.setInt(2, size);
-				  rs = pstmt.executeQuery();
-			
+			pstmt = conn.prepareStatement(
+					"SELECT * FROM (SELECT ROWNUM AS NUM, product_list.* FROM product_list)WHERE NUM BETWEEN ? AND ? order by p_no");
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, size);
+			rs = pstmt.executeQuery();
+
 			while (rs.next()) {
 				result.add(convertProduct(rs));
 			}
 			System.out.println("ProductDao3" + startRow);
 			System.out.println("ProductDao3" + size);
-			
+
 			return result;
-			
-			
-	
+
 		} finally {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
 
 		}
 	}
+
+	// 전체 상품 수를 조회하는 메서드
+	// 全商品数を取得するメソッド
 	public int selectCount(Connection conn) throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -52,7 +54,6 @@ public class ProductUpdateDao {
 
 			if (rs.next()) {
 				return rs.getInt(1);
-				
 
 			}
 			return 0;
@@ -63,20 +64,17 @@ public class ProductUpdateDao {
 
 		}
 	}
-	
+
+	// ResultSet에서 Product 객체로 변환하는 메서드
+	// ResultSetからProductオブジェクトに変換するメソッド
 	private Product convertProduct(ResultSet rs) throws SQLException {
-		return new Product(rs.getInt("p_no"),
-				rs.getString("p_name"),
-				rs.getInt("p_seoul"),
-				rs.getInt("p_suwon"),
-				rs.getInt("p_incheon"),
-				rs.getInt("price")); 
+		return new Product(rs.getInt("p_no"), rs.getString("p_name"), rs.getInt("p_seoul"), rs.getInt("p_suwon"),
+				rs.getInt("p_incheon"), rs.getInt("price"));
 
 	}
 
-
-	
-	
+	// 상품 번호로 상품을 조회하는 메서드
+	// 商品番号で商品を取得するメソッド
 	public Product selectById(Connection conn, int p_no) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -86,18 +84,10 @@ public class ProductUpdateDao {
 			pstmt.setInt(1, p_no);
 			rs = pstmt.executeQuery();
 
-					
 			Product product = null;
-			if(rs.next()) {
-				product = new Product(
-						rs.getInt("p_no"),
-						rs.getString("p_name"),
-						rs.getInt("p_seoul"),
-						rs.getInt("p_suwon"),
-						rs.getInt("p_incheon"),
-						rs.getInt("price")
-						);
-							
+			if (rs.next()) {
+				product = new Product(rs.getInt("p_no"), rs.getString("p_name"), rs.getInt("p_seoul"),
+						rs.getInt("p_suwon"), rs.getInt("p_incheon"), rs.getInt("price"));
 
 			}
 			return product;
@@ -105,25 +95,15 @@ public class ProductUpdateDao {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
 		}
-	
+
 	}
 
-	/*
-	 * public void insert(Connection conn, Product mem) throws SQLException { try
-	 * (PreparedStatement pstmt =
-	 * conn.prepareStatement("insert into product_list values(?,?,?,?,?,?)")) {
-	 * pstmt.setInt(1, mem.getP_no()); pstmt.setString(2, mem.getP_name());
-	 * pstmt.setInt(3, mem.getP_seoul()); pstmt.setInt(4, mem.getP_suwon());
-	 * pstmt.setInt(5, mem.getP_incheon()); pstmt.setInt(6, mem.getPrice()); }}
-	 */
-
-
-	
-
+	// 상품 정보를 업데이트하는 메서드
+	// 商品情報を更新するメソッド
 
 	public void update(Connection conn, ProductRequest member) throws SQLException {
-		try (PreparedStatement pstmt = conn
-				.prepareStatement("update product_list set p_name=?, p_seoul = ?,p_suwon=?, p_incheon = ?,price=? where p_no = ?")) {
+		try (PreparedStatement pstmt = conn.prepareStatement(
+				"update product_list set p_name=?, p_seoul = ?,p_suwon=?, p_incheon = ?,price=? where p_no = ?")) {
 			pstmt.setString(1, member.getP_name());
 			pstmt.setInt(2, member.getP_seoul());
 			pstmt.setInt(3, member.getP_suwon());
@@ -132,10 +112,7 @@ public class ProductUpdateDao {
 			pstmt.setInt(6, member.getP_no());
 
 			pstmt.executeUpdate();
-		}}
-	
-
-
-	
+		}
+	}
 
 }
