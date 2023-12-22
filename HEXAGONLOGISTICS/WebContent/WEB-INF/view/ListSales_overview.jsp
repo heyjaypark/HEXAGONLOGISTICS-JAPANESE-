@@ -34,7 +34,7 @@
 				<th>水原店販売量</th>
 				<th>仁川店販売量</th>
 				<th>日付</th>
-				<th>短歌</th>
+				<th>単価</th>
 				<th>Total</th>
 				
 			</tr>
