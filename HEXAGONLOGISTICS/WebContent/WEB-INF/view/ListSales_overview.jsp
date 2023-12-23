@@ -9,7 +9,7 @@
 </head>
 <body>
  <%@ include file="/WEB-INF/view/in/header.jsp" %>
-	<div>
+	<div align= "left">
 		<a href="registSales.do"><button>販売登録ページへ</button></a>
 		<form action="salesSearch.do" name="p_no" method="post">
 			<div>
@@ -17,11 +17,9 @@
     				<option value="1">取引番号</option>
     				<option value="2">品目コード</option>    
 				</select>
-				<input type="text" name="code" value = "${param.code}" required>
+				<input type="text" name="code" value = "${param.code}" required><input type="submit" value="検索">
 			</div>
-			<div>
-				<input type="submit" value="検索">
-			</div>
+			
 		</form>
 	</div>
 	<div align="center">

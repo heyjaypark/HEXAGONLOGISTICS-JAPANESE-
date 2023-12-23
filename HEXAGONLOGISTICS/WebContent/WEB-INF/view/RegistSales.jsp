@@ -91,7 +91,7 @@ alert("登録されました。");
         <th>仁川店販売</th>
         <th>水原店在庫</th>
         <th>水原店販売</th>
-        <th>短歌</th>
+        <th>単価</th>
         <th>日付</th>
         <th>action</th>
     </tr>

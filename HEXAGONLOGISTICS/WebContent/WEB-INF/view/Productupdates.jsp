@@ -42,7 +42,7 @@
 				<th>ソウル店</th>
 				<th>水原店</th>
 				<th>仁川店</th>
-				<th>短歌</th>
+				<th>単価</th>
 			</tr>
 			<c:if test="${productPage.hasNoArticles()}">
 				<tr>
