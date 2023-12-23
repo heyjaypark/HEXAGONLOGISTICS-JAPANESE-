@@ -127,6 +127,8 @@ public class RegistSalesHandler implements CommandHandler {
 				return FORM_VIEW;
 			} else {
 				salesService.registSales(salesReq);
+				
+				 errors.put("success", true); 
 				return FORM_VIEW;
 			}
 			/*여러가지 에러가 발생할 경우의 처리
