@@ -120,15 +120,15 @@ ${product.l_writer}
 <tr>
 <td colspan="4">
 <c:if test="${productLogPage.startPage > 5}">
-<a href="ProductLog.do?pageNo=${productLogPage.startPage - 5}">[以前]</a>
+<a href="productlogsearch.do?pageNo=${productLogPage.startPage - 5}&p_no=${param.p_no}">[以前]</a>
 </c:if>
 <c:forEach var="pNo"
 begin="${productLogPage.startPage}"
 end="${productLogPage.endPage}">
-<a href="ProductLog.do?pageNo=${pNo}">[${pNo}]</a>
+<a href="productlogsearch.do?pageNo=${pNo}&p_no=${param.p_no} ">[${pNo}]</a>
 </c:forEach>
 <c:if test="${productLogPage.endPage < productLogPage.totalPages}">
-<a href="ProductLog.do?pageNo=${productLogPage.startPage + 5}">[次のページ]</a>
+<a href="productlogsearch.do?pageNo=${productLogPage.startPage + 5}&p_no=${param.p_no}">[次のページ]</a>
 </c:if>
 </td>
 </tr>
