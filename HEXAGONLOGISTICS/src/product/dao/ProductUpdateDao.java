@@ -103,14 +103,29 @@ public class ProductUpdateDao {
 
 	public void update(Connection conn, ProductRequest member) throws SQLException {
 		try (PreparedStatement pstmt = conn.prepareStatement(
-				"update product_list set p_name=?, p_seoul = ?,p_suwon=?, p_incheon = ?,price=? where p_no = ?")) {
-			pstmt.setString(1, member.getP_name());
-			pstmt.setInt(2, member.getP_seoul());
-			pstmt.setInt(3, member.getP_suwon());
-			pstmt.setInt(4, member.getP_incheon());
-			pstmt.setInt(5, member.getPrice());
-			pstmt.setInt(6, member.getP_no());
+				"update product_list set p_seoul = p_seoul + ?,p_suwon= p_suwon + ?, p_incheon = p_incheon + ?,price=? where p_no = ?")) {
+			
+			pstmt.setInt(1, member.getP_seoul());
+			pstmt.setInt(2, member.getP_suwon());
+			pstmt.setInt(3, member.getP_incheon());
+			pstmt.setInt(4, member.getPrice());
+			pstmt.setInt(5, member.getP_no());
 
+			pstmt.executeUpdate();
+		}
+	}
+	public void L_update(Connection conn, ProductRequest mem) throws SQLException {
+		try (PreparedStatement pstmt = conn
+				.prepareStatement("insert into product_log values(S_PRODUCT_log.nextval,?,?,?,?,?,?,?,?,?)")) {
+			pstmt.setString(1, "入庫");
+			pstmt.setInt(2, mem.getP_no());
+			pstmt.setString(3, mem.getP_name());
+			pstmt.setInt(4, mem.getP_seoul());
+			pstmt.setInt(5, mem.getP_suwon());
+			pstmt.setInt(6, mem.getP_incheon());
+			pstmt.setInt(7, mem.getPrice());
+			pstmt.setDate(8, mem.getDate());
+			pstmt.setString(9, mem.getWriter());
 			pstmt.executeUpdate();
 		}
 	}

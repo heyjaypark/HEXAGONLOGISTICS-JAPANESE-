@@ -11,6 +11,7 @@ public class Product {
 	private int p_incheon;
 	private int price;
 	
+	
 
 	public Product(int p_no, String p_name, int p_seoul, int p_suwon, int p_incheon, int price) {
 		this.p_no = p_no;

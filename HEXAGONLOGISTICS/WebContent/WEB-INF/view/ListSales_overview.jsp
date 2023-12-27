@@ -34,6 +34,7 @@
 				<th>日付</th>
 				<th>単価</th>
 				<th>Total</th>
+				<th>등록인</th>
 				
 			</tr>
 			
@@ -56,14 +57,15 @@
 					<td>${sales.s_Date}</td>
 					<td>${sales.price}</td>
 					<td>${sales.price*(sales.s_Seoul+sales.s_Suwon+sales.s_Incheon)}</td>
+					<td>${sales.s_Registrant }</td>
 				</tr>
 			</c:forEach>
 			<c:if test="${salesPage.hasArticles()}">		
 			<tr>
-				<td colspan="7"></td>
+				<td colspan="8"></td>
 			</tr>	
 			<tr>
-			<td colspan="4">
+			<td colspan="5">
 						<!-- 페이징 코드. 단위는 5개
 						ページングコード。 単位は五つ -->
 				<c:if test="${salesPage.startPage > 5}">

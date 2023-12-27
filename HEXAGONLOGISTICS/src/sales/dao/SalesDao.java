@@ -52,12 +52,13 @@ public class SalesDao {
 	 */
 	public void insert(Connection conn, RegistRequest sal) throws SQLException {
 		try (PreparedStatement pstmt = conn
-				.prepareStatement("insert into sales_list values(S_SALES_LIST.NEXTVAL,?,?,?,?,?)")) {
+				.prepareStatement("insert into sales_list values(S_SALES_LIST.NEXTVAL,?,?,?,?,?,?)")) {
 			pstmt.setInt(1, sal.getP_no());
 			pstmt.setInt(2, sal.getS_seoul());
 			pstmt.setInt(3, sal.getS_suwon());
 			pstmt.setInt(4, sal.getS_incheon());
 			pstmt.setDate(5, sal.getS_date());
+			pstmt.setString(6, sal.getS_registant());
 			pstmt.executeUpdate();
 		}
 	}
@@ -89,7 +90,7 @@ public class SalesDao {
 		List<SalesList> result = new ArrayList<>();
 		try {
 
-			pstmt = conn.prepareStatement("select A.num, s_num, A.p_no, B.p_name, s_seoul, s_suwon, s_incheon, s_date, price from (select rownum as num, sales_list.* from sales_list) A, product_list B  where A.p_no = B.p_no and A.num between ? and ? order by s_num");
+			pstmt = conn.prepareStatement("select A.num, s_num, A.p_no, B.p_name, s_seoul, s_suwon, s_incheon, s_date, price, s_registrant from (select rownum as num, sales_list.* from sales_list) A, product_list B  where A.p_no = B.p_no and A.num between ? and ? order by s_num");
 				  pstmt.setInt(1, startRow);
 				  pstmt.setInt(2, size);
 				  rs = pstmt.executeQuery();
@@ -147,7 +148,8 @@ public class SalesDao {
 				rs.getInt("s_suwon"),
 				rs.getInt("s_incheon"),
 				rs.getString("s_date"),
-				rs.getInt("price")); 
+				rs.getInt("price"), 
+				rs.getString("s_registrant"));
 
 	}
 	
@@ -192,7 +194,7 @@ public List<SalesList> select2(Connection conn, int startRow, int size, int code
 		List<SalesList> result = new ArrayList<>();
 		try {
 
-			pstmt = conn.prepareStatement("select s_num, sale.p_no, product_list.p_name, s_seoul, s_suwon, s_incheon, s_date, price from (select ROWNUM as num, sales_list.* from sales_list where p_no=?) SALE, product_list where product_list.p_no = sale.p_no and sale.num between ? and ? order by s_num");
+			pstmt = conn.prepareStatement("select s_num, sale.p_no, product_list.p_name, s_seoul, s_suwon, s_incheon, s_date, price, s_registrant from (select ROWNUM as num, sales_list.* from sales_list where p_no=?) SALE, product_list where product_list.p_no = sale.p_no and sale.num between ? and ? order by s_num");
 				  pstmt.setInt(1, code);
 				  pstmt.setInt(2, startRow);
 				  pstmt.setInt(3, size);				  
@@ -256,7 +258,7 @@ public List<SalesList> select3(Connection conn, int startRow, int size, int code
 	List<SalesList> result = new ArrayList<>();
 	try {
 
-		pstmt = conn.prepareStatement("select s_num, sale.p_no, product_list.p_name, s_seoul, s_suwon, s_incheon, s_date, price from (select ROWNUM as num, sales_list.* from sales_list where s_num=?) SALE, product_list where product_list.p_no = sale.p_no and sale.num between ? and ? order by s_num");
+		pstmt = conn.prepareStatement("select s_num, sale.p_no, product_list.p_name, s_seoul, s_suwon, s_incheon, s_date, price, s_registrant from (select ROWNUM as num, sales_list.* from sales_list where s_num=?) SALE, product_list where product_list.p_no = sale.p_no and sale.num between ? and ? order by s_num");
 			  pstmt.setInt(1, code);
 			  pstmt.setInt(2, startRow);
 			  pstmt.setInt(3, size);				  

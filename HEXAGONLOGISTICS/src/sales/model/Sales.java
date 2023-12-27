@@ -12,14 +12,16 @@ public class Sales {
 	private int s_suwon;
 	private int s_incheon;
 	private Date s_date;
+	private String s_registrant;
 	
-	public Sales(int s_num, int p_no, int s_seoul, int s_suwon, int s_incheon, Date s_date) {
+	public Sales(int s_num, int p_no, int s_seoul, int s_suwon, int s_incheon, Date s_date, String s_registrant) {
 		this.s_num = s_num;
 		this.p_no = p_no;
 		this.s_seoul = s_seoul;
 		this.s_suwon = s_suwon;
 		this.s_incheon = s_incheon;
 		this.s_date = s_date;
+		this.s_registrant = s_registrant;
 	}
 
 	public int getS_num() {
@@ -45,5 +47,10 @@ public class Sales {
 	public Date getS_date() {
 		return s_date;
 	}
+
+	public String getS_registrant() {
+		return s_registrant;
+	}
+	
 
 }

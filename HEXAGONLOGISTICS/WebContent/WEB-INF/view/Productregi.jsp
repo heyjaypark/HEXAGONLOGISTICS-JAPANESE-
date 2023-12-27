@@ -25,6 +25,7 @@
 <th>水原店</th>
 <th>仁川店</th>
 <th>単価</th>
+<th>日付</th>
 </tr>
 <tr>
 
@@ -42,6 +43,11 @@
 </td>
 <td>
 <input type="text" name="price" size="27%"/>
+</td>
+<td>
+<input type="date" name="date" id="today">
+
+<input type="hidden" name="writer" value="${authUser.name }">
 </td>
 </tr>
 </table>

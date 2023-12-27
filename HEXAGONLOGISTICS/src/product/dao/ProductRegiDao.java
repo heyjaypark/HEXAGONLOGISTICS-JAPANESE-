@@ -117,11 +117,26 @@ public class ProductRegiDao {
 		}
 	}
 
+	public void L_insert(Connection conn, ProductRequest mem) throws SQLException {
+		try (PreparedStatement pstmt = conn
+				.prepareStatement("insert into product_log values(S_PRODUCT_log.nextval,?,S_PRODUCT_list.currval,?,?,?,?,?,?,?)")) {
+			pstmt.setString(1, "登録");
+			pstmt.setString(2, mem.getP_name());
+			pstmt.setInt(3, mem.getP_seoul());
+			pstmt.setInt(4, mem.getP_suwon());
+			pstmt.setInt(5, mem.getP_incheon());
+			pstmt.setInt(6, mem.getPrice());
+			pstmt.setDate(7, mem.getDate());
+			pstmt.setString(8, mem.getWriter());
+			pstmt.executeUpdate();
+		}
+	}
+
 	// 상품 정보를 업데이트합니다.
 	// 商品情報を更新します。
 	public void update(Connection conn, Product member) throws SQLException {
 		try (PreparedStatement pstmt = conn
-				.prepareStatement("update porduct_list set p_seoul = ?,p_suwon=?, p_incheon = ? where p_no = ?")) {
+				.prepareStatement("update product_list set p_seoul = ?,p_suwon=?, p_incheon = ? where p_no = ?")) {
 			pstmt.setInt(1, member.getP_seoul());
 			pstmt.setInt(2, member.getP_suwon());
 			pstmt.setInt(3, member.getP_incheon());

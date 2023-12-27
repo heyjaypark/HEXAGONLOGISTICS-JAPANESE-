@@ -5,7 +5,6 @@ import java.sql.SQLException;
 
 import connection.ConnectionProvider;
 import jdbc.JdbcUtil;
-import member.service.DuplicateIdException;
 import product.dao.ProductUpdateDao;
 import product.model.Product;
 import product.model.ProductRequest;
@@ -27,6 +26,7 @@ public class ProductUpdateService {
 			// 상품 정보 업데이트
 			// 商品情報をアップデート
 			prd.update(conn, pro);
+			prd.L_update(conn,pro);
 			conn.commit();
 		} catch (SQLException e) {
 			// 데이터베이스 롤백

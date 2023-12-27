@@ -5,6 +5,12 @@
 <!DOCTYPE html>
 
 <html>
+<head>
+<meta charset="UTF-8">
+<title>投稿削除</title>
+ <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
  <%@ include file="/WEB-INF/view/in/header.jsp" %>
 <div align="center">
 <!-- 회원가입에 필요한 정보 입력란

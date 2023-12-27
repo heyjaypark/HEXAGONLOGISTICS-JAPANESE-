@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
    <header>
     <div id="logo">
-<img src="imageServlet?imageName=logo.png" alt="이미지">
+<a href="index.jsp"><img src="imageServlet?imageName=logo.png" alt="이미지"></a>
 </div>
 <h1><a href="index.jsp">Hexagon Logistics ver 1.0</a></h1>
     <div id="loginButton">

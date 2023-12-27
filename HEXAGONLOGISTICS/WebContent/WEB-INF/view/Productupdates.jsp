@@ -7,11 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>品目アップデート</title>
-  <link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-	
- <%@ include file="/WEB-INF/view/in/header.jsp" %>
+
+	<%@ include file="/WEB-INF/view/in/header.jsp"%>
 	<div class="content">
 		<div>
 			<a href="productregi.do"><button type="submit" class="submit">登録ページへ</button>
@@ -32,69 +32,74 @@
 		</div>
 	</div>
 	<div align="center">
-<form action="productupdate.do" method="post">
-		<table border="1">
-			<tr>
-			</tr>
-			<tr>
-				<th>品目コード</th>
-				<th>品目名</th>
-				<th>ソウル店</th>
-				<th>水原店</th>
-				<th>仁川店</th>
-				<th>単価</th>
-			</tr>
-			<c:if test="${productPage.hasNoArticles()}">
+		<form action="productupdate.do" method="post">
+			<table border="1">
 				<tr>
-					<td colspan="4">登録されていない商品です。</td>
 				</tr>
-			</c:if>
-			<!-- 불러온 품목정보를 표시하는 행
-			検索した品目情報を表示する行 -->
-			<c:if test="${errors.notnull}">
 				<tr>
-					<td>${product1.p_no}</td>
-					<td>${product1.p_name}</td>
-					<td>${product1.p_seoul}</td>
-					<td>${product1.p_suwon}</td>
-					<td>${product1.p_incheon}</td>
-					<td>${product1.price}</td>
+					<th>品目コード</th>
+					<th>品目名</th>
+					<th>ソウル店</th>
+					<th>水原店</th>
+					<th>仁川店</th>
+					<th>単価</th>
 				</tr>
-			</c:if>
-			<!-- 수정값 입력란
-			修正値入力欄 -->
-			<c:if test="${not empty product1.p_no}">
-			<tr>
-						<th>品目コード</th>
-						<th>修正する品目名</th>
-						<th>修正するソウル店</th>
-						<th>修正する水原店</th>
-						<th>修正する仁川店</th>
-						<th>修正する短歌</th>
+				<c:if test="${productPage.hasNoArticles()}">
+					<tr>
+						<td colspan="4">登録されていない商品です。</td>
 					</tr>
-						<tr>
+				</c:if>
+				<!-- 불러온 품목정보를 표시하는 행
+			検索した品目情報を表示する行 -->
+				<c:if test="${errors.notnull}">
+					<tr>
+						<td>${product1.p_no}</td>
+						<td>${product1.p_name}</td>
+						<td>${product1.p_seoul}</td>
+						<td>${product1.p_suwon}</td>
+						<td>${product1.p_incheon}</td>
+						<td>${product1.price}</td>
+						
+					</tr>
+				</c:if>
+				<!-- 수정값 입력란
+			修正値入力欄 -->
+				<c:if test="${not empty product1.p_no}">
+					<tr>
+						<th>品目コード</th>
+						<th>品目名</th>
+						<th>ソウル店入庫量</th>
+						<th>水原店入庫量</th>
+						<th>仁川店入庫量</th>
+						<th>修正する単価</th>
+						<th>入庫日</th>
+					</tr>
+					<tr>
 						<td><input type="hidden" name="p_no" value="${param.p_no}">${param.p_no}</td>
-						<td><input type="text" name="p_name" size="27%" value="${product1.p_name}" style="width: 80%;"/></td>
+						<td><input type="hidden" name="p_name"
+							value="${product1.p_name}">${product1.p_name}</td>
 						<td><input type="text" name="p_seoul" size="27%" /></td>
 						<td><input type="text" name="p_suwon" size="27%" /></td>
 						<td><input type="text" name="p_incheon" size="27%" /></td>
 						<td><input type="text" name="price" size="27%" /></td>
+						<td><input type="date" name="date" id="today"> <input
+							type="hidden" name="writer" value="${authUser.name }"></td>
 					</tr>
-					</c:if>
-		</table>
-						<button type="submit" class="submit-button">修正</button>
-				</form>
+				</c:if>
+			</table>
+			<button type="submit" class="submit-button">入庫</button>
+		</form>
 
 	</div>
 	<!-- 에러발생 및 수정성공시 문자표시
 	エラー発生及び修正成功時の文字表示 -->
-		<c:if test="${errors.numberInsert}">変更する値を入力してください。</c:if>
-		<c:if test="${errors.successUpdate}">
-			<script type="text/javascript">
-				alert("修正されました");
-			</script>
-		</c:if>
-<c:if test="${errors.NoMinus}">
+	<c:if test="${errors.numberInsert}">変更する値を入力してください。</c:if>
+	<c:if test="${errors.successUpdate}">
+		<script type="text/javascript">
+			alert("入庫されました");
+		</script>
+	</c:if>
+	<c:if test="${errors.NoMinus}">
 正数を入力してください
 </c:if>
 

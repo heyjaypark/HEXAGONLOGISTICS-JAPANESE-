@@ -11,7 +11,14 @@ public class RegistRequest {
 	private int s_suwon;
 	private int s_incheon;
 	private Date s_date;
+	private String s_registrant;
 	
+	public String getS_registant() {
+		return s_registrant;
+	}
+	public void setS_registant(String s_registant) {
+		this.s_registrant = s_registant;
+	}
 	public int getP_no() {
 		return p_no;
 	}

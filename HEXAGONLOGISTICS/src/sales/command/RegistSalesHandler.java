@@ -53,6 +53,7 @@ public class RegistSalesHandler implements CommandHandler {
 		int p_seoul = 0;
 		int p_suwon = 0;
 		int p_incheon = 0;
+		String s_registrant = req.getParameter("s_registrant");
 
 		/*파라미터를 통해 전달된 문자열 값을 담는다.
 		パラメータを通じて伝達された文字列の値を盛り込む。*/
@@ -118,6 +119,7 @@ public class RegistSalesHandler implements CommandHandler {
 			salesReq.setS_suwon(s_suwon);
 			salesReq.setS_incheon(s_incheon);
 			salesReq.setS_date(s_date);
+			salesReq.setS_registant(s_registrant);
 
 			salesReq.validate(errors);
 

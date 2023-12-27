@@ -32,6 +32,8 @@ public class ProductRegiService {
 			}
 
 			prd.insert(conn, pro);
+			prd.L_insert(conn,pro);
+			
 			conn.commit();
 		} catch (SQLException e) {
 			// SQLException이 발생한 경우 롤백하고 RuntimeException 예외 발생

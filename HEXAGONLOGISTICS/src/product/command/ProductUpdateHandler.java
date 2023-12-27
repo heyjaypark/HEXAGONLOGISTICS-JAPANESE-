@@ -1,5 +1,7 @@
 package product.command;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,17 +43,33 @@ public class ProductUpdateHandler implements CommandHandler {
 		String p_suwonval = req.getParameter("p_suwon");
 		String p_incheonval = req.getParameter("p_incheon");
 		String p_priceval = req.getParameter("price");
+		String L_dateval = req.getParameter("date");
+		String L_writer = req.getParameter("writer");
 		int p_no = 0;
 		int p_seoul = 0;
 		int p_suwon = 0;
 		int p_incheon = 0;
 		int price = 0;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date utilDate = null;
+		java.sql.Date L_date = null;
 
 		// 에러를 저장할 Map을 생성하고 기본값을 설정합니다.
 		// エラーを保存するMapを作成し、デフォルト値を設定します。
 		Map<String, Boolean> errors = new HashMap<>();
 		req.setAttribute("errors", errors);
 		errors.put("numberInsert", null);
+		
+		try {
+			if (L_dateval == null || L_dateval.trim().isEmpty()) {
+				errors.put("salesDateError", true); return FORM_VIEW;
+			} else {
+				utilDate = dateFormat.parse(L_dateval);
+				L_date = new java.sql.Date(utilDate.getTime());
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 		try {
 			// 입력 값을 숫자로 변환합니다.
@@ -68,6 +86,8 @@ public class ProductUpdateHandler implements CommandHandler {
 			productReq.setP_suwon(p_suwon);
 			productReq.setP_incheon(p_incheon);
 			productReq.setPrice(price);
+			productReq.setWriter(L_writer);
+			productReq.setDate(L_date);
 			if (p_seoul < 0 || p_suwon < 0 || p_incheon < 0 || price < 0) {
 				throw new NoMinusException();
 			} else {

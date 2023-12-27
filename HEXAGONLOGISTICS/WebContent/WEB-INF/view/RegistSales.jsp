@@ -7,6 +7,13 @@
 <meta charset="UTF-8">
 <title>販売登録</title>
   <link rel="stylesheet" type="text/css" href="css/main.css">
+  <script>
+  function deleteRow(element) {
+	    var row = element.parentNode.parentNode; // 버튼의 부모의 부모는 해당 행(tr)입니다.
+	    var table = row.parentNode; // 행을 포함한 테이블을 찾습니다.
+	    table.deleteRow(row.rowIndex); // 해당 행을 삭제합니다.
+	}
+  </script>
 </head>
 <body>
 
@@ -110,7 +117,7 @@ alert("登録されました。");
     <td><input type="hidden" name="p_incheon" value="${prod.p_incheon}">${prod.p_incheon }</td>
         <td><input type="text" name="s_incheon"></td>
     <td>${prod.price }</td>
-    <td><input type="date" name="s_date" id="today"></td>
+    <td><input type="date" name="s_date" id="today"><input type="hidden" name="s_registrant" value="${authUser.name }"></td>
     <td><button onclick="deleteRow(this)">削除</button>
     </tr>
     </c:if>

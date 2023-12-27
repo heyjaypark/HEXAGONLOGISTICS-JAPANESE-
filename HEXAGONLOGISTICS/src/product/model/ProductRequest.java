@@ -1,6 +1,6 @@
 package product.model;
 
-
+import java.sql.Date;
 
 public class ProductRequest {
 	
@@ -10,12 +10,37 @@ public class ProductRequest {
 	private int p_suwon;
 	private int p_incheon;
 	private int price;
+	private String Writer;
+	private Date date;
+	
 	
 
 	
 
+	
+
 
 	
+
+
+	public String getWriter() {
+		return Writer;
+	}
+
+
+	public Date getDate() {
+		return date;
+	}
+
+
+	public void setWriter(String writer) {
+		Writer = writer;
+	}
+
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 
 	public int getP_no() {
